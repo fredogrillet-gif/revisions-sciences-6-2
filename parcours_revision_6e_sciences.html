@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mission Sciences 6e — Parcours de révision</title>
+<style>
+:root{--bg:#071522;--card:#10283d;--card2:#173750;--txt:#eef8ff;--muted:#b6cada;--blue:#57d5ff;--green:#5cdb91;--red:#ff6b75;--gold:#ffd166}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#164263,#071522 60%);color:var(--txt);font:16px Arial,sans-serif;line-height:1.5}
+header{position:sticky;top:0;z-index:10;background:#071522ee;border-bottom:1px solid #31536b;padding:15px;text-align:center}
+h1{margin:0;font-size:clamp(25px,4vw,40px)}h2{color:#bcefff}h3{color:#d7f5ff}.sub{color:var(--muted)}
+.progress{height:10px;background:#20384c;border-radius:10px;max-width:950px;margin:12px auto 0;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--blue),#a78bfa,var(--gold));transition:.4s}
+main{max-width:1050px;margin:auto;padding:20px 14px 80px}.mission{display:none}.mission.active{display:block}
+.card{background:linear-gradient(145deg,var(--card),#0c2133);border:1px solid #315871;border-radius:18px;padding:20px;margin:15px 0;box-shadow:0 12px 30px #0004}
+.hero{border-color:#3b8aae}.badge{display:inline-block;background:#1b4c68;color:#a8ecff;padding:5px 10px;border-radius:20px;font-weight:bold;font-size:13px}
+.question{padding:18px 0;border-top:1px solid #315066}.question:first-child{border-top:0}
+button{border:0;border-radius:10px;padding:10px 15px;margin:5px;background:var(--blue);color:#062031;font-weight:bold;cursor:pointer}button.secondary{background:#29465e;color:white}button:hover{filter:brightness(1.08)}
+input,select{background:#071827;color:white;border:1px solid #46677e;border-radius:8px;padding:9px;font-size:16px}input[type=number]{width:130px}label{display:block;margin:8px 0;cursor:pointer}
+.feedback{display:none;padding:10px;margin-top:8px;border-radius:9px}.good{display:block;background:#123e2b;border:1px solid #3eaf72}.bad{display:block;background:#4b1f28;border:1px solid #d05a68}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.tile{background:#0a1d2d;border:1px solid #365a70;border-radius:12px;padding:14px;text-align:center}
+table{width:100%;border-collapse:collapse;margin:10px 0}th,td{border:1px solid #385b70;padding:9px;text-align:center}th{background:#183d58}
+.big{font-size:25px;text-align:center;background:#061321;border-radius:10px;padding:12px}.hint{color:var(--muted);font-size:14px}
+.dragitem{display:inline-block;background:#24516d;padding:9px;border-radius:8px;margin:5px;cursor:grab}.drop{min-height:65px;border:2px dashed #477087;border-radius:10px;padding:8px;margin:7px}.final{font-size:19px}
+#scorebox{position:fixed;right:12px;bottom:12px;z-index:20;background:#071827ee;border:1px solid #41677f;border-radius:12px;padding:9px 13px}
+</style>
+</head>
+<body>
+<header>
+<h1>🚀 Mission Sciences 6e</h1>
+<div class="sub">Grand parcours de révision — vitesse • mouvements • météo</div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+</header>
+<div id="scorebox">⭐ Score : <b id="score">0</b></div>
+
+<main>
+<section class="mission active" id="m0">
+<div class="card hero">
+<span class="badge">BRIEFING</span>
+<h2>🛰️ Le centre de contrôle est en panne !</h2>
+<p>Pour le réactiver, tu dois réussir une série de missions scientifiques. Tu vas revoir tout ce qui peut être demandé dans ton évaluation :</p>
+<ul><li>grandeurs, valeurs et unités ;</li><li>trajectoires et mouvements ;</li><li>calculs de vitesse ;</li><li>instruments et grandeurs météorologiques ;</li><li>prévisions météorologiques.</li></ul>
+<p><b>Durée conseillée : 45 à 60 minutes.</b> Lis attentivement les consignes et recommence une question si nécessaire.</p>
+<button onclick="go(1)">🚀 Commencer</button>
+</div>
+</section>
+
+<section class="mission" id="m1">
+<span class="badge">MISSION 1 · GRANDEURS & MESURES</span>
+<div class="card">
+<h2>🔬 Le laboratoire des mesures</h2>
+<p>Une grandeur physique est une propriété de la nature que l’on peut quantifier par une mesure ou un calcul. Il ne faut pas confondre grandeur, valeur et unité.</p>
+
+<div class="question">
+<h3>1. Vrai ou faux</h3>
+<label><input type="radio" name="q1" value="bad"> Une grandeur et une unité sont la même chose.</label>
+<label><input type="radio" name="q1" value="good"> Une grandeur peut être mesurée.</label>
+<label><input type="radio" name="q1" value="good"> Un résultat de mesure doit être accompagné de son unité.</label>
+<p class="hint">Deux réponses sont attendues.</p>
+<button onclick="checkMulti('q1',['good','good'],this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>2. Dans « distance d = 35 km »</h3>
+<table><tr><th>Grandeur</th><th>Valeur</th><th>Unité</th></tr>
+<tr><td><select id="q2a"><option>?</option><option value="distance">distance</option><option value="35">35</option><option value="km">km</option></select></td>
+<td><select id="q2b"><option>?</option><option value="distance">distance</option><option value="35">35</option><option value="km">km</option></select></td>
+<td><select id="q2c"><option>?</option><option value="distance">distance</option><option value="35">35</option><option value="km">km</option></select></td></tr></table>
+<button onclick="checkPair(['q2a','q2b','q2c'],['distance','35','km'],this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>3. Calculer ou mesurer ?</h3>
+<div class="grid">
+<div class="tile">Utiliser un chronomètre<br><select id="q3a"><option>?</option><option value="mesurer">mesurer</option><option value="calculer">calculer</option></select></div>
+<div class="tile">Effectuer 125 ÷ 2<br><select id="q3b"><option>?</option><option value="mesurer">mesurer</option><option value="calculer">calculer</option></select></div>
+</div>
+<button onclick="checkPair(['q3a','q3b'],['mesurer','calculer'],this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>4. Unités légales</h3>
+<div class="grid">
+<div class="tile">Distance : <input id="q4a" placeholder="unité"></div>
+<div class="tile">Temps : <input id="q4b" placeholder="unité"></div>
+<div class="tile">Vitesse : <input id="q4c" placeholder="unité"></div>
+</div>
+<button onclick="checkText(['q4a','q4b','q4c'],[['m','mètre'],['s','seconde'],['m/s','m/s']],this)">Valider</button><div class="feedback"></div>
+</div>
+<button onclick="go(2)">Mission 2 →</button>
+</div></section>
+
+<section class="mission" id="m2">
+<span class="badge">MISSION 2 · TRAJECTOIRES</span>
+<div class="card">
+<h2>🎢 Le parc des mouvements</h2>
+<p>La trajectoire est l’ensemble des positions occupées au cours du temps par un objet qui se déplace.</p>
+
+<div class="question">
+<h3>1. Classe les situations</h3>
+<p class="hint">Glisse chaque situation dans la bonne zone.</p>
+<div class="dragitem" draggable="true" data-type="rect">🚗 voiture sur route droite</div>
+<div class="dragitem" draggable="true" data-type="circ">🎡 nacelle de grande roue</div>
+<div class="dragitem" draggable="true" data-type="quel">🎢 wagon sur une piste courbe</div>
+<div class="grid">
+<div><b>Rectiligne</b><div class="drop" data-accept="rect"></div></div>
+<div><b>Circulaire</b><div class="drop" data-accept="circ"></div></div>
+<div><b>Quelconque</b><div class="drop" data-accept="quel"></div></div>
+</div>
+<button onclick="checkDrag(this)">Valider le classement</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>2. Associe trajectoire et mouvement</h3>
+<table>
+<tr><th>Trajectoire</th><th>Mouvement</th></tr>
+<tr><td>droite</td><td><select id="q6"><option>?</option><option value="rect">rectiligne</option><option value="circ">circulaire</option><option value="quel">quelconque</option></select></td></tr>
+<tr><td>cercle</td><td><select id="q7"><option>?</option><option value="rect">rectiligne</option><option value="circ">circulaire</option><option value="quel">quelconque</option></select></td></tr>
+<tr><td>courbe qui n’est pas un cercle</td><td><select id="q8"><option>?</option><option value="rect">rectiligne</option><option value="circ">circulaire</option><option value="quel">quelconque</option></select></td></tr>
+</table>
+<button onclick="checkPair(['q6','q7','q8'],['rect','circ','quel'],this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>3. Chasse l’intrus</h3>
+<p>Deux situations présentent une trajectoire circulaire. Une seule est rectiligne. Laquelle ?</p>
+<select id="q9"><option>?</option><option value="b">Nacelle de grande roue</option><option value="c">Siège d’ascenseur qui monte verticalement</option><option value="b">Balle attachée à une ficelle qui tourne</option></select>
+<button onclick="checkSelect('q9','c',this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>4. Raisonnement</h3>
+<p>Pourquoi les rails d’un manège permettent-ils de prévoir la trajectoire du wagon ?</p>
+<select id="q10"><option>?</option><option value="good">Ils imposent le chemin que le wagon peut suivre.</option><option value="bad">Ils mesurent automatiquement la vitesse.</option><option value="bad">Ils changent la masse du wagon.</option></select>
+<button onclick="checkSelect('q10','good',this)">Valider</button><div class="feedback"></div>
+</div>
+<button onclick="go(3)">Mission 3 →</button>
+</div></section>
+
+<section class="mission" id="m3">
+<span class="badge">MISSION 3 · CALCULER UNE VITESSE</span>
+<div class="card">
+<h2>⚡ Le laboratoire des vitesses</h2>
+<p>Pour calculer une vitesse moyenne, on utilise :</p>
+<div class="big">vitesse = distance ÷ temps</div>
+<p>Dans une résolution complète : lire la question, écrire la formule, effectuer les conversions nécessaires, faire l’application numérique, donner le résultat avec son unité.</p>
+
+<div class="question">
+<h3>1. Vocabulaire</h3>
+<p>Quelles sont les deux mesures nécessaires pour déterminer expérimentalement une vitesse moyenne ?</p>
+<select id="q11"><option>?</option><option value="good">une distance et une durée</option><option value="bad">une masse et une température</option><option value="bad">une pression et une humidité</option></select>
+<button onclick="checkSelect('q11','good',this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>2. Voiture</h3>
+<p>Une voiture parcourt <b>125 km en 2 h</b>. Calcule sa vitesse en km/h.</p>
+<input id="q12" type="number"> km/h
+<button onclick="checkNumber('q12',62.5,this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>3. Cycliste</h3>
+<p>Un cycliste parcourt <b>18 km en 1,5 h</b>. Quelle est sa vitesse moyenne ?</p>
+<input id="q13" type="number"> km/h
+<button onclick="checkNumber('q13',12,this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>4. Coureur</h3>
+<p>Un coureur parcourt <b>400 m en 50 s</b>. Calcule sa vitesse en m/s.</p>
+<input id="q14" type="number"> m/s
+<button onclick="checkNumber('q14',8,this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>5. Conversion</h3>
+<p>Une voiture parcourt <b>3 km en 5 min</b>. Quelle est sa vitesse en km/h ?</p>
+<input id="q15" type="number"> km/h
+<button onclick="checkNumber('q15',36,this)">Valider</button><div class="feedback"></div>
+<p class="hint">Indice : 5 min = 5/60 h.</p>
+</div>
+
+<div class="question">
+<h3>6. Trouve la distance</h3>
+<p>Un véhicule roule à <b>60 km/h pendant 2 h</b>. Quelle distance parcourt-il ?</p>
+<input id="q16" type="number"> km
+<button onclick="checkNumber('q16',120,this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>7. Trouve la durée</h3>
+<p>Un train parcourt <b>150 km à 75 km/h</b>. Combien de temps dure le trajet ?</p>
+<input id="q17" type="number"> h
+<button onclick="checkNumber('q17',2,this)">Valider</button><div class="feedback"></div>
+</div>
+
+<button onclick="go(4)">Mission 4 →</button>
+</div></section>
+
+<section class="mission" id="m4">
+<span class="badge">MISSION 4 · STATION MÉTÉO</span>
+<div class="card">
+<h2>🌦️ Les instruments météorologiques</h2>
+<p>Associe chaque instrument à la grandeur qu’il mesure et à son unité.</p>
+
+<div class="grid">
+<div class="tile">🌡️<h3>Thermomètre</h3><select id="q18"><option>?</option><option value="t">température — °C</option><option value="p">pression — hPa</option><option value="r">pluie — mm</option></select></div>
+<div class="tile">💨<h3>Anémomètre</h3><select id="q19"><option>?</option><option value="v">vitesse du vent — km/h</option><option value="h">humidité — %</option><option value="t">température — °C</option></select></div>
+<div class="tile">🌧️<h3>Pluviomètre</h3><select id="q20"><option>?</option><option value="r">hauteur de pluie — mm</option><option value="p">pression — hPa</option><option value="v">vent — km/h</option></select></div>
+<div class="tile">🧭<h3>Baromètre</h3><select id="q21"><option>?</option><option value="p">pression de l’air — hPa</option><option value="r">pluie — mm</option><option value="v">vent — km/h</option></select></div>
+<div class="tile">➡️<h3>Girouette</h3><select id="q22"><option>?</option><option value="d">direction et sens du vent</option><option value="t">température — °C</option><option value="v">vitesse — km/h</option></select></div>
+<div class="tile">💧<h3>Hygromètre</h3><select id="q23"><option>?</option><option value="h">taux d’humidité — %</option><option value="p">pression — hPa</option><option value="r">pluie — mm</option></select></div>
+</div>
+<button onclick="checkPair(['q18','q19','q20','q21','q22','q23'],['t','v','r','p','d','h'],this)">Valider</button><div class="feedback"></div>
+
+<div class="question">
+<h3>2. Quel est l’intrus ?</h3>
+<p>Pourquoi la girouette est-elle différente des autres instruments ?</p>
+<select id="q24"><option>?</option><option value="good">Elle indique une direction et un sens, pas une valeur chiffrée avec une unité.</option><option value="bad">Elle mesure la pluie.</option><option value="bad">Elle mesure la température.</option></select>
+<button onclick="checkSelect('q24','good',this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>3. Associe unité et grandeur</h3>
+<table>
+<tr><th>Unité</th><th>Grandeur</th></tr>
+<tr><td>°C</td><td><select id="q25"><option>?</option><option value="temp">température</option><option value="hum">humidité</option><option value="press">pression</option></select></td></tr>
+<tr><td>hPa</td><td><select id="q26"><option>?</option><option value="temp">température</option><option value="hum">humidité</option><option value="press">pression</option></select></td></tr>
+<tr><td>%</td><td><select id="q27"><option>?</option><option value="temp">température</option><option value="hum">humidité</option><option value="press">pression</option></select></td></tr>
+</table>
+<button onclick="checkPair(['q25','q26','q27'],['temp','press','hum'],this)">Valider</button><div class="feedback"></div>
+</div>
+<button onclick="go(5)">Mission 5 →</button>
+</div></section>
+
+<section class="mission" id="m5">
+<span class="badge">MISSION 5 · PRÉVOIR LE TEMPS</span>
+<div class="card">
+<h2>🧭 Le bulletin météo</h2>
+<p>La météorologie étudie les phénomènes atmosphériques et cherche à prévoir le temps. La climatologie travaille sur des échelles de temps et d’espace différentes.</p>
+
+<div class="question">
+<h3>1. Météorologie ou climatologie ?</h3>
+<div class="grid">
+<div class="tile">Prévoir le temps demain<br><select id="q28"><option>?</option><option value="met">météorologie</option><option value="cli">climatologie</option></select></div>
+<div class="tile">Étudier les températures sur plusieurs décennies<br><select id="q29"><option>?</option><option value="met">météorologie</option><option value="cli">climatologie</option></select></div>
+</div>
+<button onclick="checkPair(['q28','q29'],['met','cli'],this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>2. Analyse d’un bulletin</h3>
+<table><tr><th>Ville</th><th>Pression</th><th>Précipitations</th><th>Vent</th></tr>
+<tr><td>A</td><td>1023 hPa</td><td>1 mm</td><td>10 km/h</td></tr>
+<tr><td>B</td><td>1002 hPa</td><td>5 mm</td><td>25 km/h</td></tr>
+<tr><td>C</td><td>1018 hPa</td><td>0 mm</td><td>8 km/h</td></tr></table>
+<p>Quelle ville reçoit le plus de précipitations ?</p>
+<select id="q30"><option>?</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select>
+<button onclick="checkSelect('q30','B',this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>3. Anticyclone ou dépression ?</h3>
+<p>Selon le cours, un anticyclone est associé à un temps généralement beau et une dépression à un temps généralement mauvais.</p>
+<div class="grid">
+<div>Beau temps : <select id="q31"><option>?</option><option value="a">anticyclone</option><option value="d">dépression</option></select></div>
+<div>Mauvais temps : <select id="q32"><option>?</option><option value="a">anticyclone</option><option value="d">dépression</option></select></div>
+</div>
+<button onclick="checkPair(['q31','q32'],['a','d'],this)">Valider</button><div class="feedback"></div>
+</div>
+
+<div class="question">
+<h3>4. Les mesures nécessaires</h3>
+<p>Parmi ces grandeurs, lesquelles peuvent être mesurées pour établir des prévisions météo ?</p>
+<label><input type="checkbox" name="q33" value="yes"> température</label>
+<label><input type="checkbox" name="q33" value="yes"> pression</label>
+<label><input type="checkbox" name="q33" value="yes"> vitesse et direction du vent</label>
+<label><input type="checkbox" name="q33" value="yes"> humidité</label>
+<button onclick="checkChecks('q33',this)">Valider</button><div class="feedback"></div>
+</div>
+<button onclick="go(6)">Mission finale →</button>
+</div></section>
+
+<section class="mission" id="m6">
+<span class="badge">MISSION 6 · ÉPREUVE FINALE</span>
+<div class="card">
+<h2>🔐 Le code du centre de contrôle</h2>
+<p>Résous ces six problèmes sans regarder les réponses précédentes. C’est ton dernier entraînement avant l’évaluation.</p>
+
+<div class="question"><h3>1. Vitesse</h3><p>Un vélo parcourt 30 km en 2 h. Vitesse ?</p><input id="f1" type="number"> km/h <button onclick="checkNumber('f1',15,this)">Valider</button><div class="feedback"></div></div>
+<div class="question"><h3>2. Mouvement</h3><p>Une trajectoire en cercle correspond à un mouvement…</p><select id="f2"><option>?</option><option value="c">circulaire</option><option value="r">rectiligne</option><option value="q">quelconque</option></select><button onclick="checkSelect('f2','c',this)">Valider</button><div class="feedback"></div></div>
+<div class="question"><h3>3. Instrument</h3><p>Quel instrument mesure la pression de l’air ?</p><select id="f3"><option>?</option><option value="b">baromètre</option><option value="p">pluviomètre</option><option value="a">anémomètre</option></select><button onclick="checkSelect('f3','b',this)">Valider</button><div class="feedback"></div></div>
+<div class="question"><h3>4. Unité</h3><p>Quelle est l’unité usuelle de vitesse ?</p><select id="f4"><option>?</option><option value="k">km/h</option><option value="m">km</option><option value="h">hPa</option></select><button onclick="checkSelect('f4','k',this)">Valider</button><div class="feedback"></div></div>
+<div class="question"><h3>5. Vitesse en m/s</h3><p>100 m parcourus en 20 s : vitesse ?</p><input id="f5" type="number"> m/s <button onclick="checkNumber('f5',5,this)">Valider</button><div class="feedback"></div></div>
+<div class="question"><h3>6. Vent</h3><p>Quel instrument indique la direction et le sens du vent ?</p><select id="f6"><option>?</option><option value="g">girouette</option><option value="h">hygromètre</option><option value="t">thermomètre</option></select><button onclick="checkSelect('f6','g',this)">Valider</button><div class="feedback"></div></div>
+
+<div class="card">
+<h2>🏁 Bilan</h2>
+<p id="final" class="final">Clique sur « Voir mon bilan » après avoir terminé les six énigmes.</p>
+<button onclick="finish()">Voir mon bilan</button>
+<button class="secondary" onclick="location.reload()">Recommencer le parcours</button>
+</div>
+</div></section>
+</main>
+
+<script>
+let score=0,missions=6;
+function go(n){document.querySelectorAll('.mission').forEach(x=>x.classList.remove('active'));document.getElementById('m'+n).classList.add('active');document.getElementById('bar').style.width=(n/missions*100)+'%';scrollTo({top:0,behavior:'smooth'})}
+function done(btn,ok){
+ const q=btn.parentElement,fb=q.querySelector('.feedback');
+ fb.className='feedback '+(ok?'good':'bad');fb.textContent=ok?'✅ Correct !':'❌ À revoir : lis l’énoncé et réessaie.';
+ if(ok&&!q.dataset.scored){q.dataset.scored=1;score++;document.getElementById('score').textContent=score}
+}
+function checkSelect(id,val,btn){done(btn,document.getElementById(id).value===val)}
+function checkPair(ids,vals,btn){done(btn,ids.every((x,i)=>document.getElementById(x).value===vals[i]))}
+function checkNumber(id,val,btn){let n=parseFloat(document.getElementById(id).value);done(btn,Number.isFinite(n)&&Math.abs(n-val)<.001)}
+function norm(s){return s.toLowerCase().trim().replaceAll('é','e').replaceAll('è','e').replaceAll('ê','e').replaceAll('à','a')}
+function checkText(ids,vals,btn){done(btn,ids.every((id,i)=>vals[i].map(norm).includes(norm(document.getElementById(id).value))))}
+function checkMulti(name,vals,btn){let a=[...document.querySelectorAll('input[name="'+name+'"]:checked')].map(x=>x.value);done(btn,a.length===vals.length&&a.every((x,i)=>x===vals[i]))}
+function checkChecks(name,btn){let a=[...document.querySelectorAll('input[name="'+name+'"]:checked')];done(btn,a.length===4)}
+let dragged=null;
+document.querySelectorAll('.dragitem').forEach(x=>x.addEventListener('dragstart',()=>dragged=x));
+document.querySelectorAll('.drop').forEach(z=>{z.addEventListener('dragover',e=>e.preventDefault());z.addEventListener('drop',e=>{e.preventDefault();if(dragged)z.appendChild(dragged)})});
+function checkDrag(btn){let ok=[...document.querySelectorAll('.drop')].every(z=>z.children.length===1&&z.children[0].dataset.type===z.dataset.accept);done(btn,ok)}
+function finish(){let max=28,p=Math.round(score/max*100),msg=p>=85?'🏆 Excellent : tu es très bien préparé(e) !':p>=70?'🥈 Mission réussie : les bases sont solides, révise encore les points où tu as hésité.':'🔧 Encore un entraînement conseillé : reprends surtout les calculs de vitesse et les instruments météo.';document.getElementById('final').innerHTML='<b>'+msg+'</b><br>Score enregistré : '+score+' / '+max+' ('+p+' %).';}
+</script>
+</body>
+</html>
